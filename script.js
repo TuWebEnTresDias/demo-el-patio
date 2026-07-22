@@ -139,38 +139,88 @@
         });
     });
 
-    // --- Gallery: Load More Photos ---
-    var loadMoreBtn = document.getElementById('loadMoreGallery');
-    var placeholders = document.getElementById('gallery-placeholders');
-    var galleryGrid = document.querySelector('.gallery-grid');
-    var isLoaded = false;
+    // --- Carrusel: Así se ve el lugar ---
+    (function initCarousel() {
+        var track = document.querySelector('.carrusel-track');
+        var prevBtn = document.querySelector('.carrusel-prev');
+        var nextBtn = document.querySelector('.carrusel-next');
+        var dotsContainer = document.querySelector('.carrusel-dots');
+        if (!track || !prevBtn || !nextBtn) return;
 
-    if (loadMoreBtn && placeholders && galleryGrid) {
-        loadMoreBtn.addEventListener('click', function () {
-            if (isLoaded) return;
+        var slides = track.querySelectorAll('.carrusel-slide');
+        var slideWidth = 0;
+        var currentIndex = 0;
 
-            var items = placeholders.querySelectorAll('.gallery-item');
-            items.forEach(function (item, index) {
-                var clone = item.cloneNode(true);
-                clone.style.opacity = '0';
-                clone.style.transform = 'translateY(20px)';
-                galleryGrid.appendChild(clone);
+        function getSlideWidth() {
+            if (slides.length > 0) {
+                var slide = slides[0];
+                var style = window.getComputedStyle(slide);
+                var marginLeft = parseFloat(style.marginLeft) || 0;
+                var marginRight = parseFloat(style.marginRight) || 0;
+                var gap = parseFloat(window.getComputedStyle(track).gap) || 16;
+                slideWidth = slide.offsetWidth + marginLeft + marginRight + gap;
+            }
+        }
 
-                // Staggered fade-in
-                setTimeout(function () {
-                    clone.style.opacity = '1';
-                    clone.style.transform = 'translateY(0)';
-                    clone.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                }, 100 * index);
+        function updateDots() {
+            if (!dotsContainer) return;
+            var dotIndex = Math.round(track.scrollLeft / slideWidth);
+            dotsContainer.querySelectorAll('.carrusel-dot').forEach(function (dot, i) {
+                dot.classList.toggle('active', i === dotIndex);
             });
+        }
 
-            isLoaded = true;
-            loadMoreBtn.textContent = '✓ Fotos cargadas';
-            loadMoreBtn.disabled = true;
-            loadMoreBtn.style.opacity = '0.6';
-            loadMoreBtn.style.cursor = 'default';
+        function scrollTo(index) {
+            getSlideWidth();
+            if (slideWidth <= 0) {
+                slideWidth = track.querySelector('.carrusel-slide').offsetWidth + 16;
+            }
+            track.scrollTo({ left: index * slideWidth, behavior: 'smooth' });
+        }
+
+        // Build dots
+        if (dotsContainer && slides.length > 0) {
+            slides.forEach(function (_, i) {
+                var dot = document.createElement('button');
+                dot.className = 'carrusel-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', 'Ir a imagen ' + (i + 1));
+                dot.addEventListener('click', function () { scrollTo(i); });
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        prevBtn.addEventListener('click', function () {
+            getSlideWidth();
+            if (slideWidth <= 0) return;
+            var newIndex = Math.max(0, Math.round(track.scrollLeft / slideWidth) - 1);
+            scrollTo(newIndex);
         });
-    }
+
+        nextBtn.addEventListener('click', function () {
+            getSlideWidth();
+            if (slideWidth <= 0) return;
+            var newIndex = Math.min(slides.length - 1, Math.round(track.scrollLeft / slideWidth) + 1);
+            scrollTo(newIndex);
+        });
+
+        // Update dots on scroll
+        track.addEventListener('scroll', function () {
+            getSlideWidth();
+            updateDots();
+        });
+
+        // Recalc on resize
+        window.addEventListener('resize', function () {
+            getSlideWidth();
+            updateDots();
+        });
+
+        // Initial setup
+        setTimeout(function () {
+            getSlideWidth();
+            updateDots();
+        }, 200);
+    })();
 
     // --- Reservation Form → WhatsApp ---
     var reservationForm = document.getElementById('reservation-form');

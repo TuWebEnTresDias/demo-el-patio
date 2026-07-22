@@ -871,36 +871,142 @@ h4 { font-size: 1.1rem; }
     color: var(--color-white);
 }
 
-.gallery-actions {
-    display: flex;
-    justify-content: center;
-    margin-top: var(--space-xl);
+/* ========================================
+   CARRUSEL — Así se ve el lugar
+   ======================================== */
+.carrusel-section {
+    background-color: var(--color-crema);
+    overflow: hidden;
 }
 
-.btn-secondary-dark {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--color-primary);
+.carrusel-section .container {
+    text-align: center;
+}
+
+.carrusel-wrapper {
+    position: relative;
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+.carrusel-track {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--space-xs) 0 var(--space-lg);
+    scrollbar-width: none;
+}
+
+.carrusel-track::-webkit-scrollbar {
+    display: none;
+}
+
+.carrusel-slide {
+    flex: 0 0 calc((100% - 2 * var(--space-md)) / 3);
+    scroll-snap-align: start;
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.carrusel-slide:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+}
+
+.carrusel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.carrusel-slide:hover img {
+    transform: scale(1.08);
+}
+
+.carrusel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-md);
+    background: linear-gradient(transparent, rgba(44,44,44,0.75));
+    color: var(--color-white);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+.carrusel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
     background-color: var(--color-white);
-    border: 1.5px solid var(--color-primary-light);
-    border-radius: var(--radius-md);
+    color: var(--color-primary);
+    border: 1px solid var(--color-crema-dark);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    opacity: 0;
+}
+
+.carrusel-wrapper:hover .carrusel-btn {
+    opacity: 1;
+}
+
+.carrusel-btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carrusel-prev {
+    left: calc(var(--space-md) - 8px);
+}
+
+.carrusel-next {
+    right: calc(var(--space-md) - 8px);
+}
+
+.carrusel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: var(--space-sm);
+    padding-bottom: var(--space-sm);
+}
+
+.carrusel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--color-crema-dark);
+    border: none;
     cursor: pointer;
     transition: all var(--transition-base);
 }
 
-.btn-secondary-dark:hover {
+.carrusel-dot.active {
     background-color: var(--color-primary);
-    color: var(--color-white);
-    border-color: var(--color-primary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    width: 28px;
+    border-radius: 5px;
 }
 
 /* ========================================
@@ -1653,6 +1759,14 @@ h4 { font-size: 1.1rem; }
         aspect-ratio: 16/9;
     }
     
+    .carrusel-slide {
+        flex: 0 0 calc((100% - var(--space-md)) / 2);
+    }
+    
+    .carrusel-btn {
+        opacity: 1;
+    }
+    
     .reserva-bg .reserva-overlay {
         background: linear-gradient(
             to right,
@@ -1745,6 +1859,16 @@ h4 { font-size: 1.1rem; }
     .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.5rem;
+    }
+    
+    .carrusel-slide {
+        flex: 0 0 100%;
+    }
+    
+    .carrusel-btn {
+        opacity: 1;
+        width: 40px;
+        height: 40px;
     }
     
     .testimonials-grid {
