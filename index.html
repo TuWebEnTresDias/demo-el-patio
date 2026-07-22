@@ -24,6 +24,8 @@
             <a href="#menu">Menú</a>
             <a href="#galeria">Galería</a>
             <a href="#momentos">Momentos</a>
+            <a href="#petfriendly">Pet Friendly</a>
+            <a href="#reserva">Reservá</a>
             <a href="#contacto">Contacto</a>
         </nav>
         <a href="https://wa.me/5491157165416?text=Hola! Quiero hacer una reserva o consultar por El Patio" class="cta-header" target="_blank">
@@ -44,6 +46,8 @@
     <a href="#menu">Menú</a>
     <a href="#galeria">Galería</a>
     <a href="#momentos">Momentos</a>
+    <a href="#petfriendly">Pet Friendly</a>
+    <a href="#reserva">Reservá</a>
     <a href="#contacto">Contacto</a>
     <a href="https://wa.me/5491157165416?text=Hola! Quiero hacer una reserva" class="cta-mobile" target="_blank">Reservar por WhatsApp</a>
 </nav>
@@ -63,7 +67,7 @@
             <a href="https://wa.me/5491157165416?text=Hola! Quiero reservar una mesa en El Patio" class="btn btn-secondary" target="_blank">Reservar mesa</a>
         </div>
         <div class="hero-badges">
-            <span class="badge">🌿 Pet Friendly</span>
+            <a href="#petfriendly" class="badge">🌿 Pet Friendly</a>
             <span class="badge">🌾 Opciones sin TACC</span>
         </div>
     </div>
@@ -391,6 +395,51 @@
                 <span>Cielo de hiedra</span>
             </div>
         </div>
+        <div class="gallery-actions">
+            <button id="loadMoreGallery" class="btn btn-secondary-dark">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Cargar más fotos
+            </button>
+        </div>
+        <!-- Placeholder images for dynamic loading -->
+        <div id="gallery-placeholders" class="gallery-grid" style="display: none;">
+            <div class="gallery-item" data-animate>
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl1f_CdCbABwWiKuSZiigi4o_Ug9GmRTlgmZvZBRxmAoIVbcVxhwvJ28N5YEVgFadiChwlT3sIjLZSF1a0MxrNOqurV4TKFMHUv8BtQ-fG_fOc6z-2WQlkn2uTwKnSvSxBDTFiJ8xNd8_0I=s1360-w1360-h1020-rw" alt="Entrada con rosedal" loading="lazy">
+                <div class="gallery-overlay"><span>Entrada con rosedal</span></div>
+            </div>
+            <div class="gallery-item" data-animate>
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnpfm1atwosj1Ht__XUDVlteYkcL1XqDHo9QVp1ZzDjIXveHf95FmYGoPzSiFdpXI0QU2Km2NQp2lF07tjcf12jyvo7rBVaLyzOziRLbDrUP_7Gs3EX9jeTO2vLUuI7abcFaIDkRy1Tqc0o=s1360-w1360-h1020-rw" alt="Mesa con sillas de colores" loading="lazy">
+                <div class="gallery-overlay"><span>Mesa con sillas de colores</span></div>
+            </div>
+            <div class="gallery-item" data-animate>
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnN0vtxPht13IKeW0HeqVUVtk4lRR5QlA39ac3mZFZ1Go4IdOWT_ZZijQe8CYnu4EJ47ecdxqWEerZJCwG_AYmt1dozFdgccb588b4EuJdij27M9Y8ChmScIWTuBECDfLiSlRG2nA=s1360-w1360-h1020-rw" alt="Zona abierta de noche" loading="lazy">
+                <div class="gallery-overlay"><span>Noches al aire libre</span></div>
+            </div>
+            <div class="gallery-item" data-animate>
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnojQuUYNSLHzg9d7HLLTlDUB24zilVWXxhtL0JqeXTOPmkvVaA1PDAktH-j8OlX2n2NkVHhIT_FS9Czm0bgIBhJ7NtRfMlsdWXKQVrw8J8slxS3efWzbRnQ7uXMNbp1TAGQKAEPetx5uGz=s1360-w1360-h1020-rw" alt="Mesita redonda con comidas y batidos" loading="lazy">
+                <div class="gallery-overlay"><span>Mesita preparada</span></div>
+            </div>
+            <div class="gallery-item" data-animate>
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkojNpW6himfCE6cRx4izmNNDGWqPMne7gaTRXiz693evCMnXFyBMakjaCG22JBUblc0p9bRTtGqcfD60x7_yTk6WQZjMm12YMlK2kYY9hRxPLoesU2bSPhuW0pft8FncjGyDzrsBMknxWD=s1360-w1360-h1020-rw" alt="Mesa con flores y velas" loading="lazy">
+                <div class="gallery-overlay"><span>Mesa con flores y velas</span></div>
+            </div>
+            <div class="gallery-item" data-animate>
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkvgUZRoUGs4PWrRyfpmy9ESJYGwoK95DjByErryLEzN3x2HWB9yea0KGiA4DQWGvN5q8j1Rc6RHraHeL561AS5jZaDkuEZBfi0KFfzjfn58VwPgZeHu9x2tlVQnjh5SsH5sCgy=s1360-w1360-h1020-rw" alt="Sillones y living interior" loading="lazy">
+                <div class="gallery-overlay"><span>Sillones y living interior</span></div>
+            </div>
+            <div class="gallery-item" data-animate>
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkB48kTH8aOLqiDZpcNpK6dnyc6Q-l_BJ-cRDsK9uTDKQ_I8wFoSNyUFzAej0SGBWPRl1gpjekGB4XItK7WUzGwicHJiHqEKtoEvjWr8gNLwRnb2_EAS4s5EnzZipo2ELWHl83GFMk1foY=s1360-w1360-h1020-rw" alt="Esquina del patio con plantas" loading="lazy">
+                <div class="gallery-overlay"><span>Esquina del patio</span></div>
+            </div>
+            <div class="gallery-item" data-animate>
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlm3tOTm950l5BDieJa-N5975sHoRA1d0I6NCTT72HggzQ43o494AHJZ6xLJ0AFiDMQbq5kLkSc1SDnV0I2N6w-9ualru-0ASYJ82vrmildBbNT3xs_U05PJ8HNTao-wcTErs7PppWZKWrq=s1360-w1360-h1020-rw" alt="Vista del jardín" loading="lazy">
+                <div class="gallery-overlay"><span>Vista del jardín</span></div>
+            </div>
+            <div class="gallery-item" data-animate>
+                <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlQOSkeA9BWV1cTzdOZCQ87H7xtU72iv1botpReHQ3fnKHIQz5Iga-kZErDR05QtyaLbQEkPvndBPjxTO-qRBRXvvuPPYMJC8GpU9UFBREWnuLSIbsdxU0Oat-_M6LcBBFz7JeYrD9idt8d=s1360-w1360-h1020-rw" alt="Detalle del jardín y la decoración" loading="lazy">
+                <div class="gallery-overlay"><span>Jardín y decoración</span></div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -490,6 +539,63 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- Pet Friendly -->
+<section id="petfriendly" class="section petfriendly">
+    <div class="container">
+        <div class="petfriendly-grid">
+            <div class="petfriendly-content" data-animate>
+                <span class="section-eyebrow">Pet Friendly</span>
+                <h2>Acá las mascotas<br>también son bienvenidas.</h2>
+                <p>En El Patio sabemos que las mascotas son parte de la familia. Por eso nuestro jardín está abierto para que vengas con tu compañero de cuatro patas a disfrutar de un buen momento. Agua fresca, mimos y un espacio verde donde ellos también se sienten en casa.</p>
+                <div class="petfriendly-features">
+                    <div class="petfriendly-feature" data-animate>
+                        <span class="petfriendly-icon">💧</span>
+                        <div>
+                            <strong>Agua fresca siempre</strong>
+                            <p>Bowls de agua disponibles en todo el patio para que tu mascota se hidrate.</p>
+                        </div>
+                    </div>
+                    <div class="petfriendly-feature" data-animate>
+                        <span class="petfriendly-icon">🦴</span>
+                        <div>
+                            <strong>Snacks de cortesía</strong>
+                            <p>Galletitas para perros con cada visita. Así ellos también tienen su gusto.</p>
+                        </div>
+                    </div>
+                    <div class="petfriendly-feature" data-animate>
+                        <span class="petfriendly-icon">🌿</span>
+                        <div>
+                            <strong>Jardín pet-friendly</strong>
+                            <p>Un espacio verde y tranquilo donde las mascotas se relajan tanto como vos.</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://www.instagram.com/elpatioba" class="btn btn-primary" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    Seguilos en @elpatioba
+                </a>
+            </div>
+            <div class="petfriendly-image" data-animate>
+                <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=600&h=750&fit=crop" alt="Mascota relajándose en El Patio" loading="lazy">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Reservá tu Mesa -->
+<section id="reserva" class="section reserva-section">
+    <div class="reserva-bg">
+        <img src="https://lh3.googleusercontent.com/grass-cs/ACvplmMJ61Dek-VKmE5f11RBMVB3AGhAGhjKa_sSSlYZdMQPkQpfgPZzGHxHl-io2D98HN7txPvFmY5Vx2Q7Y3IeMbofMK-WH8lVWZlGIVYeP3Ua_sc-XF6I5YuDmcV2bArKSPiSLcM=s1360-w1360-h1020-rw" alt="Interior de El Patio — mesa preparada" loading="lazy">
+        <div class="reserva-overlay"></div>
+    </div>
+    <div class="reserva-content" data-animate>
+        <span class="section-eyebrow">Reservá tu Experiencia</span>
+        <h2>Tu mesa en el jardín<br>te está esperando.</h2>
+        <p>El interior de El Patio te envuelve con su luz cálida, ladrillos vistos y una atmósfera que invita a quedarse. Ya sea para un desayuno tranquilo, un brunch con amigas o una merienda especial, tenemos una mesa lista para vos.</p>
+        <a href="#contacto" class="btn btn-primary">Reservar ahora</a>
     </div>
 </section>
 
@@ -647,6 +753,8 @@
                 <a href="#menu">Menú</a>
                 <a href="#galeria">Galería</a>
                 <a href="#momentos">Momentos</a>
+                <a href="#petfriendly">Pet Friendly</a>
+                <a href="#reserva">Reservá</a>
                 <a href="#contacto">Contacto</a>
             </div>
             <div class="footer-links">

@@ -139,6 +139,39 @@
         });
     });
 
+    // --- Gallery: Load More Photos ---
+    var loadMoreBtn = document.getElementById('loadMoreGallery');
+    var placeholders = document.getElementById('gallery-placeholders');
+    var galleryGrid = document.querySelector('.gallery-grid');
+    var isLoaded = false;
+
+    if (loadMoreBtn && placeholders && galleryGrid) {
+        loadMoreBtn.addEventListener('click', function () {
+            if (isLoaded) return;
+
+            var items = placeholders.querySelectorAll('.gallery-item');
+            items.forEach(function (item, index) {
+                var clone = item.cloneNode(true);
+                clone.style.opacity = '0';
+                clone.style.transform = 'translateY(20px)';
+                galleryGrid.appendChild(clone);
+
+                // Staggered fade-in
+                setTimeout(function () {
+                    clone.style.opacity = '1';
+                    clone.style.transform = 'translateY(0)';
+                    clone.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                }, 100 * index);
+            });
+
+            isLoaded = true;
+            loadMoreBtn.textContent = '✓ Fotos cargadas';
+            loadMoreBtn.disabled = true;
+            loadMoreBtn.style.opacity = '0.6';
+            loadMoreBtn.style.cursor = 'default';
+        });
+    }
+
     // --- Reservation Form → WhatsApp ---
     var reservationForm = document.getElementById('reservation-form');
 
