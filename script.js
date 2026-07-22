@@ -150,7 +150,7 @@
         var slideCount = track.children.length;
         if (slideCount === 0) return;
 
-        var currentIndex = 1;
+        var currentIndex = 0; // 0-based: 0 = primera slide
         var isClickLocked = false;
 
         // --- Calcular el ancho de paso (slide + gap) ---
@@ -169,10 +169,9 @@
 
         function updateDots() {
             if (!dotsContainer) return;
-            var dotIdx = currentIndex - 1;
             var dots = dotsContainer.children;
             for (var i = 0; i < dots.length; i++) {
-                dots[i].classList.toggle('active', i === dotIdx);
+                dots[i].classList.toggle('active', i === currentIndex);
             }
         }
 
@@ -183,9 +182,9 @@
             var target = currentIndex + dir;
             var wrap = false;
 
-            if (target < 1)    { currentIndex = slideCount; wrap = true; }
-            else if (target > slideCount) { currentIndex = 1; wrap = true; }
-            else               { currentIndex = target; }
+            if (target < 0)              { currentIndex = slideCount - 1; wrap = true; }
+            else if (target >= slideCount) { currentIndex = 0; wrap = true; }
+            else                          { currentIndex = target; }
 
             updateTransform(!wrap);
             updateDots();
@@ -200,7 +199,7 @@
                 dot.addEventListener('click', function () {
                     if (isClickLocked) return;
                     isClickLocked = true;
-                    currentIndex = idx + 1;
+                    currentIndex = idx;
                     updateTransform(true);
                     updateDots();
                     setTimeout(function () { isClickLocked = false; }, 400);
@@ -214,7 +213,6 @@
         nextBtn.addEventListener('click', function () { navigate(1); });
 
         // --- Init ---
-        // Esperar al próximo frame para que offsetWidth sea correcto
         requestAnimationFrame(function () {
             updateTransform(false);
             updateDots();
