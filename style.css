@@ -888,13 +888,14 @@ h4 { font-size: 1.1rem; }
     max-width: var(--container-wide);
     margin: 0 auto;
     padding: 0 var(--space-md);
+    overflow: hidden; /* clip visual de las slides */
 }
 
 .carrusel-track {
     display: flex;
     gap: var(--space-md);
-    overflow: hidden;
     padding: var(--space-xs) 0 var(--space-lg);
+    /* sin overflow — el wrapper clipa */
 }
 
 .carrusel-slide {

@@ -139,7 +139,7 @@
         });
     });
 
-    // --- Carrusel Infinito: Así se ve el lugar ---
+    // --- Carrusel: Así se ve el lugar ---
     (function initCarousel() {
         var track = document.querySelector('.carrusel-track');
         var prevBtn = document.querySelector('.carrusel-prev');
@@ -147,67 +147,56 @@
         var dotsContainer = document.querySelector('.carrusel-dots');
         if (!track || !prevBtn || !nextBtn) return;
 
-        var slides = Array.from(track.querySelectorAll('.carrusel-slide'));
-        var slideCount = slides.length;
+        var slideCount = track.children.length;
         if (slideCount === 0) return;
 
-        var currentIndex = 1; // arranca en la primer slide (1-based)
+        var currentIndex = 1;
         var isClickLocked = false;
 
-        // --- Cálculos ---
+        // --- Calcular el ancho de paso (slide + gap) ---
         function getStepWidth() {
-            var slide = track.querySelector('.carrusel-slide');
+            var slide = track.children[0];
             if (!slide) return 400;
             var gap = parseFloat(window.getComputedStyle(track).gap) || 16;
-            return slide.getBoundingClientRect().width + gap;
+            return slide.offsetWidth + gap;
         }
 
         function updateTransform(smooth) {
             var step = getStepWidth();
-            track.style.transition = smooth ? 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none';
+            track.style.transition = smooth ? 'transform 0.4s ease' : 'none';
             track.style.transform = 'translateX(-' + (currentIndex * step) + 'px)';
         }
 
         function updateDots() {
             if (!dotsContainer) return;
-            // currentIndex 1..slideCount → dot 0..slideCount-1
             var dotIdx = currentIndex - 1;
-            var dots = dotsContainer.querySelectorAll('.carrusel-dot');
+            var dots = dotsContainer.children;
             for (var i = 0; i < dots.length; i++) {
                 dots[i].classList.toggle('active', i === dotIdx);
             }
         }
 
-        // --- Navegación ---
-        function navigate(direction) {
+        function navigate(dir) {
             if (isClickLocked) return;
             isClickLocked = true;
 
-            var target = currentIndex + direction;
-            var isWrap = false;
+            var target = currentIndex + dir;
+            var wrap = false;
 
-            if (target < 1) {
-                currentIndex = slideCount; // salta al último
-                isWrap = true;
-            } else if (target > slideCount) {
-                currentIndex = 1; // salta al primero
-                isWrap = true;
-            } else {
-                currentIndex = target;
-            }
+            if (target < 1)    { currentIndex = slideCount; wrap = true; }
+            else if (target > slideCount) { currentIndex = 1; wrap = true; }
+            else               { currentIndex = target; }
 
-            updateTransform(!isWrap);
+            updateTransform(!wrap);
             updateDots();
-
-            setTimeout(function () { isClickLocked = false; }, isWrap ? 50 : 400);
+            setTimeout(function () { isClickLocked = false; }, wrap ? 50 : 400);
         }
 
-        // --- Construir dots ---
+        // --- Dots ---
         for (var i = 0; i < slideCount; i++) {
             (function (idx) {
                 var dot = document.createElement('button');
                 dot.className = 'carrusel-dot' + (i === 0 ? ' active' : '');
-                dot.setAttribute('aria-label', 'Ir a imagen ' + (idx + 1));
                 dot.addEventListener('click', function () {
                     if (isClickLocked) return;
                     isClickLocked = true;
@@ -224,13 +213,12 @@
         prevBtn.addEventListener('click', function () { navigate(-1); });
         nextBtn.addEventListener('click', function () { navigate(1); });
 
-        // --- Inicializar ---
-        // Pista: overflow hidden + transition no muestra nada al inicio,
-        // así que ponemos la posición inicial sin transición
-        track.style.transition = 'none';
-        var initStep = getStepWidth();
-        track.style.transform = 'translateX(-' + (1 * initStep) + 'px)';
-        updateDots();
+        // --- Init ---
+        // Esperar al próximo frame para que offsetWidth sea correcto
+        requestAnimationFrame(function () {
+            updateTransform(false);
+            updateDots();
+        });
     })();
 
     // --- Reservation Form → WhatsApp ---
