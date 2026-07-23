@@ -212,11 +212,9 @@
         prevBtn.addEventListener('click', function () { navigate(-1); });
         nextBtn.addEventListener('click', function () { navigate(1); });
 
-        // --- Init ---
-        requestAnimationFrame(function () {
-            updateTransform(false);
-            updateDots();
-        });
+        // --- Init (sincrónico: el script corre al final del <body>) ---
+        updateTransform(false);
+        updateDots();
     })();
 
     // --- Reservation Form → WhatsApp ---
